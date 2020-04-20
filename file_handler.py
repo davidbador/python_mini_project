@@ -21,12 +21,14 @@ class FileHandler(Logger):
             for column in csv_reader:
                 if data["user_id"] == column[0]:
                     return False
-        with open(file_name, 'a') as csv_file:
+        with open(file_name, 'a+') as csv_file:
             try:
                 csv_writer = csv.writer(csv_file, delimiter=",")
-                csv_writer.writerow([data['user_id'], data['first'], data['last'], data['password'], data['position'],
-                                     data['salary'], data['role']])
-                self.add_to_log('time & date person was added: ')
+                csv_writer.writerow([data['user_id'], data['first'], data['last'], data['password'],
+                                    data['position'], data['salary'], data['role']])
+                self.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
+                                                                                              data['last'],
+                                                                                              data['user_id']))
                 return True
             except Exception as e:
                 print(e)
