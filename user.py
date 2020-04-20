@@ -18,5 +18,3 @@ class User(FileHandler):
 
 
 file_handle = FileHandler()
-users = User()
-print(users.user_auth('Matan Cohen', 'fourthFour1992'))

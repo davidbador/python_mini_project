@@ -4,9 +4,12 @@ from logger import Logger
 
 class FileHandler(Logger):
 
+    def __init__(self):
+        self.data_list = []
+        super().__init__()
+
     def load_from_csv(self, file_name):
         try:
-            self.data_list = []
             with open(file_name, 'r') as csv_file:
                 read_this = csv.DictReader(csv_file)
                 for i in read_this:
@@ -34,18 +37,52 @@ class FileHandler(Logger):
                 print(e)
                 raise
 
+    def remove_from_csv(self, csv_file_name, id):
+        try:
+            lines = list()
+            answer = False
+            with open(csv_file_name, 'r') as read_file:
+                csv_reader = csv.reader(read_file)
+                for row in csv_reader:
+                    if row[0] != id:
+                        lines.append(row)
+                    else:
+                        answer = True
+            with open(csv_file_name, 'w', newline='') as write_file:
+                csv_writer = csv.writer(write_file)
+                csv_writer.writerows(lines)
+                return answer
+        except Exception as e:
+            print(e)
+            raise
+
+    def update_csv(self, csv_file_name, id, row):
+        answer = file_handle.remove_from_csv(csv_file_name, id)
+        try:
+            if answer:
+                append_this = file_handle.append_to_csv(csv_file_name, row)
+                if append_this:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            raise
+
 
 file_handle = FileHandler()
 
-data_of_person = {
-    "user_id": "1000000001",
-    "first": "Rommi",
-    "last": "Englard",
-    "password": "tenthTen1992",
-    "position": "Head of SQL",
-    "salary": "100000",
-    "role": "admin",
+data_info = {
+    "user_id": "90000009",
+    "first": "Alex",
+    "last": "Bloom",
+    "password": "ninthNine1992",
+    "position": "Head of Awesome",
+    "salary": "150000",
+    "role": "admin"
 }
 
-print(file_handle.append_to_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv',
-                                data_of_person))
+print(file_handle.update_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv', '90000009',
+                             data_info))
