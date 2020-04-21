@@ -6,6 +6,7 @@ import csv
 class CarLot:
 
     def __init__(self):
+        self.list_of_vehicles = []
         self.user = User()
 
     def update_salary_by_name(self, employee_salary, name):
@@ -60,6 +61,18 @@ class CarLot:
             print(e)
             raise
 
+    def get_fleet_size(self):
+        try:
+            with open('vehicle.csv', "r") as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=",")
+                next(csv_file)
+                for row in csv_reader:
+                    self.list_of_vehicles.append(row)
+                return len(self.list_of_vehicles)
+        except Exception as e:
+            print(e)
+            raise
+
 
 car = CarLot()
-print(car.add_to_fleet('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\external.csv'))
+print(car.get_fleet_size())
