@@ -18,6 +18,3 @@ class User:
         except Exception as e:
             print(e)
             raise
-
-
-use = User()

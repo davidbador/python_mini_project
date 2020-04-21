@@ -7,7 +7,6 @@ class FileHandler:
     def __init__(self):
         self.data_list = []
         self.log_it = Logger()
-        self.file_handle = FileHandler()
 
     def load_from_csv(self, file_name):
         try:
@@ -58,10 +57,11 @@ class FileHandler:
             raise
 
     def update_csv(self, csv_file_name, id, row):
-        answer = self.file_handle.remove_from_csv(csv_file_name, id)
+        file_handle = FileHandler()
+        answer = file_handle.remove_from_csv(csv_file_name, id)
         try:
             if answer:
-                append_this = self.file_handle.append_to_csv(csv_file_name, row)
+                append_this = file_handle.append_to_csv(csv_file_name, row)
                 if append_this:
                     return True
                 else:
