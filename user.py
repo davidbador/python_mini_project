@@ -1,9 +1,10 @@
 from file_handler import FileHandler
 
 
-class User(FileHandler):
+class User:
 
     def user_auth(self, name, password):
+        file_handle = FileHandler()
         file_handle.load_from_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv')
         this_list = file_handle.data_list
         name = name.split()
@@ -17,4 +18,4 @@ class User(FileHandler):
             raise
 
 
-file_handle = FileHandler()
+use = User()

@@ -2,11 +2,10 @@ import csv
 from logger import Logger
 
 
-class FileHandler(Logger):
+class FileHandler:
 
     def __init__(self):
         self.data_list = []
-        super().__init__()
 
     def load_from_csv(self, file_name):
         try:
@@ -29,7 +28,7 @@ class FileHandler(Logger):
                 csv_writer = csv.writer(csv_file, delimiter=",")
                 csv_writer.writerow([data['user_id'], data['first'], data['last'], data['password'],
                                     data['position'], data['salary'], data['role']])
-                self.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
+                log_it.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
                                                                                               data['last'],
                                                                                               data['user_id']))
                 return True
@@ -73,16 +72,4 @@ class FileHandler(Logger):
 
 
 file_handle = FileHandler()
-
-data_info = {
-    "user_id": "90000009",
-    "first": "Alex",
-    "last": "Bloom",
-    "password": "ninthNine1992",
-    "position": "Head of Awesome",
-    "salary": "150000",
-    "role": "admin"
-}
-
-print(file_handle.update_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv', '90000009',
-                             data_info))
+log_it = Logger()
