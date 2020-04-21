@@ -6,6 +6,8 @@ class FileHandler:
 
     def __init__(self):
         self.data_list = []
+        self.log_it = Logger()
+        self.file_handle = FileHandler()
 
     def load_from_csv(self, file_name):
         try:
@@ -28,9 +30,9 @@ class FileHandler:
                 csv_writer = csv.writer(csv_file, delimiter=",")
                 csv_writer.writerow([data['user_id'], data['first'], data['last'], data['password'],
                                     data['position'], data['salary'], data['role']])
-                log_it.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
-                                                                                              data['last'],
-                                                                                              data['user_id']))
+                self.log_it.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
+                                                                                                     data['last'],
+                                                                                                     data['user_id']))
                 return True
             except Exception as e:
                 print(e)
@@ -56,10 +58,10 @@ class FileHandler:
             raise
 
     def update_csv(self, csv_file_name, id, row):
-        answer = file_handle.remove_from_csv(csv_file_name, id)
+        answer = self.file_handle.remove_from_csv(csv_file_name, id)
         try:
             if answer:
-                append_this = file_handle.append_to_csv(csv_file_name, row)
+                append_this = self.file_handle.append_to_csv(csv_file_name, row)
                 if append_this:
                     return True
                 else:
@@ -69,7 +71,3 @@ class FileHandler:
         except Exception as e:
             print(e)
             raise
-
-
-file_handle = FileHandler()
-log_it = Logger()

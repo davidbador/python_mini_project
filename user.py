@@ -3,10 +3,12 @@ from file_handler import FileHandler
 
 class User:
 
+    def __init__(self):
+        self.file_handle = FileHandler()
+
     def user_auth(self, name, password):
-        file_handle = FileHandler()
-        file_handle.load_from_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv')
-        this_list = file_handle.data_list
+        self.file_handle.load_from_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv')
+        this_list = self.file_handle.data_list
         name = name.split()
         try:
             for section in this_list:
