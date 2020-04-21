@@ -73,6 +73,15 @@ class CarLot:
             print(e)
             raise
 
-
-car = CarLot()
-print(car.get_fleet_size())
+    def get_all_cars_by_brand(self, brand):
+        try:
+            brand_list = []
+            with open('vehicle.csv', "r") as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=",")
+                for row in csv_reader:
+                    if row[0] == brand:
+                        brand_list.append(row)
+                return len(brand_list)
+        except Exception as e:
+            print(e)
+            raise
