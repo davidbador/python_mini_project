@@ -111,5 +111,14 @@ class FileHandler:
             raise
 
 
+data_stuff = {
+    "user_id": "70000007",
+    "first": "Danielle",
+    "last": "Korn",
+    "password": "seventhSeven1994",
+    "position": "Senior Engineer",
+    "salary": "130000",
+    "role": "employee"
+}
 file = FileHandler('user.csv')
-print(file.sort_by_key('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\keys.csv', 3, 'normal'))
+print(file.update_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv', '70000007', data_stuff))
