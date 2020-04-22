@@ -51,12 +51,13 @@ class CarLot:
 
             internal_file = open("vehicle.csv", "r")
 
-            if external_file != internal_file:
+            if next(external_file) == next(internal_file):
                 with open('vehicle.csv', 'a') as csv_append:
-                    next(external_file)
                     for row in external_file:
                         csv_append.writelines(row)
                 return True
+            else:
+                return False
         except Exception as e:
             print(e)
             raise
@@ -85,3 +86,7 @@ class CarLot:
         except Exception as e:
             print(e)
             raise
+
+
+car = CarLot()
+print(car.add_to_fleet('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\external.csv'))
