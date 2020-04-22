@@ -6,12 +6,10 @@ import operator
 class FileHandler:
     __data_list = []
     __key_list = []
-    __headline_list = []
 
     def __init__(self, file_name):
         self.__data_list = []
         self.__key_list = []
-        self.__headline_list = []
         self.log_it = Logger()
         self.load_from_csv(file_name)
 
@@ -86,10 +84,8 @@ class FileHandler:
     def sort_by_key(self, file_name, key, direction):
         try:
             with open('user.csv', 'r') as csv_file:
-                csv_reader = csv.reader(csv_file)
-                for row in csv_reader:
-                    self.__headline_list.append(row)
-                    break
+                csv_reader = csv.DictReader(csv_file)
+
                 if direction == "normal":
                     arrange = sorted(csv_reader, key=operator.itemgetter(key), reverse=False)
                 elif direction == 'reverse':
@@ -101,8 +97,9 @@ class FileHandler:
                     self.__key_list.append(section)
 
             with open(file_name, 'w', newline="") as new_file:
-                csv_writer = csv.writer(new_file)
-                csv_writer.writerows(self.__headline_list)
+                keys = self.__key_list[0].keys()
+                csv_writer = csv.DictWriter(new_file, keys)
+                csv_writer.writeheader()
                 csv_writer.writerows(self.__key_list)
                 return True
 
@@ -111,14 +108,5 @@ class FileHandler:
             raise
 
 
-data_stuff = {
-    "user_id": "70000007",
-    "first": "Danielle",
-    "last": "Korn",
-    "password": "seventhSeven1994",
-    "position": "Senior Engineer",
-    "salary": "130000",
-    "role": "employee"
-}
 file = FileHandler('user.csv')
-print(file.update_csv('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\user.csv', '70000007', data_stuff))
+print(file.sort_by_key('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\keys.csv', 'position', 'normal'))
