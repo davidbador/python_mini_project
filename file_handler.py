@@ -6,10 +6,12 @@ import operator
 class FileHandler:
     __data_list = []
     __key_list = []
+    __headline_list = []
 
     def __init__(self, file_name):
         self.__data_list = []
         self.__key_list = []
+        self.__headline_list = []
         self.log_it = Logger()
         self.load_from_csv(file_name)
 
@@ -85,7 +87,9 @@ class FileHandler:
         try:
             with open('user.csv', 'r') as csv_file:
                 csv_reader = csv.reader(csv_file)
-                next(csv_reader)
+                for row in csv_reader:
+                    self.__headline_list.append(row)
+                    break
                 if direction == "normal":
                     arrange = sorted(csv_reader, key=operator.itemgetter(key), reverse=False)
                 elif direction == 'reverse':
@@ -98,9 +102,14 @@ class FileHandler:
 
             with open(file_name, 'w', newline="") as new_file:
                 csv_writer = csv.writer(new_file)
+                csv_writer.writerows(self.__headline_list)
                 csv_writer.writerows(self.__key_list)
                 return True
 
         except Exception as e:
             print(e)
             raise
+
+
+file = FileHandler('user.csv')
+print(file.sort_by_key('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\keys.csv', 3, 'normal'))
