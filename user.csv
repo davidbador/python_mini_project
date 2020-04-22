@@ -1,7 +1,5 @@
 user_id,first,last,password,position,salary,role
 10000001,David,Bador,firstOne1992,President,200000,admin
-20000002,Amit,Saig,secondTwo1995,Vice-President,150000,employee
-30000003,Hillel,Feldman,thirdThree1993,VP of R&D,150000,employee
 40000004,Matan,Cohen,fourthFour1992,Customer,100000,user
 50000005,Anna,Starr,fifthFive1990,Head of Data,150000,employee
 70000007,Danielle,Korn,seventhSeven1994,Senior Engineer,130000,employee
@@ -9,3 +7,5 @@ user_id,first,last,password,position,salary,role
 1000000001,Rommi,Englard,tenthTen1992,Head of SQL,100000,employee
 90000009,Alex,Bloom,ninthNine1992,Head of Awesome,150000,employee
 60000006,Daryl,Mizrahi,sixthSix1993,Head of Marketing,200000,employee
+20000002,Amit,Saig,secondTwo1995,Vice-President,200000,employee
+30000003,Hillel,Feldman,thirdThree1993,VP of R&D,200000,employee
