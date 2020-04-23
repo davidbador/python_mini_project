@@ -30,16 +30,18 @@ class FileHandler:
         with open(file_name, 'r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=",")
             for column in csv_reader:
-                if data["user_id"] == column[0]:
+                if data == column:
                     return False
+        csv_reader = open(file_name, 'r')
         with open(file_name, 'a+') as csv_file:
             try:
                 csv_writer = csv.writer(csv_file, delimiter=",")
-                csv_writer.writerow([data['user_id'], data['first'], data['last'], data['password'],
-                                     data['position'], data['salary'], data['role']])
-                self.log_it.add_to_log('{} {} with id {} was created at this date and time\n'.format(data['first'],
-                                                                                                     data['last'],
-                                                                                                     data['user_id']))
+                csv_list = next(csv_reader).replace('\n', '')
+                new_list = csv_list.split(",")
+                if new_list != list(data.keys()):
+                    return False
+                csv_writer.writerow(data.values())
+                self.log_it.add_to_log('This user was created at this date and time\n')
                 return True
             except Exception as e:
                 print(e)
@@ -107,6 +109,3 @@ class FileHandler:
             print(e)
             raise
 
-
-file = FileHandler('user.csv')
-print(file.sort_by_key('C:\\Users\\DavidBador\\PycharmProjects\\python_mini_project\\keys.csv', 'position', 'normal'))
