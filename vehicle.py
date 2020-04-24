@@ -24,17 +24,21 @@ class Vehicle:
         self.file_handle.load_from_csv('vehicle.csv')
         time = datetime.datetime.now()
         current_year = time.strftime("%Y")
-        for row in self.__data_list:
-            id = str(id)
-            if row['user_id'] == id:
-                next_test = int(current_year) - int(row['Last_Test'])
-                if next_test >= 2:
-                    return 'Vehicle with user id ' + id + ' must be tested right away!'
-                elif next_test == 1 or next_test == 0:
-                    if next_test == 1:
-                        return 'Vehicle with user id ' + id + ' has 1 year until its next test.'
-                    elif next_test == 0:
-                        return 'Vehicle with user id ' + id + ' has 2 years until its next test.'
-                elif next_test < 0:
-                    return False
-        return False
+        try:
+            for row in self.__data_list:
+                id = str(id)
+                if row['user_id'] == id:
+                    next_test = int(current_year) - int(row['Last_Test'])
+                    if next_test >= 2:
+                        return 'Vehicle with user id ' + id + ' must be tested right away!'
+                    elif next_test == 1 or next_test == 0:
+                        if next_test == 1:
+                            return 'Vehicle with user id ' + id + ' has 1 year until its next test.'
+                        elif next_test == 0:
+                            return 'Vehicle with user id ' + id + ' has 2 years until its next test.'
+                    elif next_test < 0:
+                        return False
+            return False
+        except Exception as e:
+            print(e)
+            raise
