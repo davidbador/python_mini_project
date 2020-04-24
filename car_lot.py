@@ -5,12 +5,14 @@ import csv
 
 class CarLot:
     __list_of_vehicles = []
+    __filter_list = []
 
     def __init__(self):
         self.__list_of_vehicles = []
+        self.__filter_list = []
         self.file_handle = FileHandler('user.csv')
         self.user = User()
-        self.__users = self.file_handle.get_data()
+        self.__data_list = self.file_handle.get_data()
 
     def update_salary_by_name(self, employee_salary, name):
         try:
@@ -19,7 +21,7 @@ class CarLot:
             if is_admin == 'admin':
                 enter_name = input('Please enter the name you want to update: ')
                 new_name = enter_name.split()
-                for row in self.__users:
+                for row in self.__data_list:
                     if row['first'] == new_name[0] and row['last'] == new_name[1] and row['role'] == 'employee':
                         row['salary'] = employee_salary
                         add_employee = self.file_handle.update_csv("user.csv", row['user_id'], row)
@@ -83,6 +85,36 @@ class CarLot:
                     if row[0] == brand:
                         brand_list.append(row)
                 return len(brand_list)
+        except Exception as e:
+            print(e)
+            raise
+
+    def get_all_cars_by_filter(self, and_or="OR", **kwargs):
+        answer = False
+        try:
+            with open('vehicle.csv', 'r') as csv_file:
+                read_this = csv.DictReader(csv_file, delimiter=",")
+                for i in read_this:
+                    self.__filter_list.append(i)
+            print_rows = []
+            for row in self.__filter_list:
+                print_rows.append(row.keys())
+                break
+            for row in self.__filter_list:
+                if and_or == "AND":
+                    if all(row.get(key, None) == val for key, val in kwargs.items()):
+                        print_rows.append(row.values())
+                        answer = True
+                elif and_or == "OR":
+                    if any(row.get(key, None) == val for key, val in kwargs.items()):
+                        print_rows.append(row.values())
+                        answer = True
+            if answer:
+                with open('vehicle.csv', 'w') as csv_file:
+                    csv_writer = csv.writer(csv_file, delimiter=",", lineterminator="\n")
+                    csv_writer.writerows(print_rows)
+                    return answer
+            return answer
         except Exception as e:
             print(e)
             raise

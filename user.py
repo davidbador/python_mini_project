@@ -21,17 +21,16 @@ class User:
             raise
 
     def add_user(self, id, **kwargs):
-        for row in self.__users:
-            if row['user_id'] == id:
+        try:
+            for row in self.__users:
+                if row['user_id'] == id:
+                    return False
+
+            answer = self.file_handle.append_to_csv('user.csv', kwargs)
+            if answer:
+                return True
+            else:
                 return False
-
-        answer = self.file_handle.append_to_csv('user.csv', kwargs)
-        if answer:
-            return True
-        else:
-            return False
-
-
-user = User()
-print(user.add_user('1200000012', user_id='1200000012', first='Sacha', last='Rebbouh', password='sachsach111',
-                    position='Rabbi', salary='200000', role='user'))
+        except Exception as e:
+            print(e)
+            raise
