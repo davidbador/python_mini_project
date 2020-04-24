@@ -1,7 +1,7 @@
-user_id,Brand,Owner,Last_Test,Color
-10000001,Range Rover,Rachel Hoffman,2017,Black
-10000001,Cadillac,Rachel Hoffman,2019,Black
-20000002,BMW,Aaron Bours,2018,Black
-30000003,Audi,Daryl Mizrahi,2019,White
-40000004,BMW,David Bador,2020,Black
-40000004,Audi,David Bador,2019,Black
+user_id,Brand,Owner,Last_Test,Color,Door_Count
+10000001,Range Rover,Rachel Hoffman,2017,Black,4
+10000001,Cadillac,Rachel Hoffman,2019,Black,4
+20000002,BMW,Aaron Bours,2018,Black,2
+30000003,Audi,Daryl Mizrahi,2019,White,2
+40000004,BMW,David Bador,2020,Black,4
+40000004,Audi,David Bador,2019,Black,2
