@@ -1,6 +1,7 @@
 from file_handler import FileHandler
 import datetime
 
+
 class Vehicle:
 
     def __init__(self):

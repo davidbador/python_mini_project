@@ -89,7 +89,7 @@ class CarLot:
             print(e)
             raise
 
-    def get_all_cars_by_filter(self, and_or="OR", **kwargs):
+    def get_all_cars_by_filter(self, and_or="AND", **kwargs):
         answer = False
         try:
             with open('vehicle.csv', 'r') as csv_file:
@@ -98,23 +98,33 @@ class CarLot:
                     self.__filter_list.append(i)
             print_rows = []
             for row in self.__filter_list:
-                print_rows.append(row.keys())
-                break
-            for row in self.__filter_list:
                 if and_or == "AND":
                     if all(row.get(key, None) == val for key, val in kwargs.items()):
-                        print_rows.append(row.values())
+                        print_rows.append(row)
                         answer = True
                 elif and_or == "OR":
                     if any(row.get(key, None) == val for key, val in kwargs.items()):
-                        print_rows.append(row.values())
+                        print_rows.append(row)
                         answer = True
             if answer:
-                with open('vehicle.csv', 'w') as csv_file:
-                    csv_writer = csv.writer(csv_file, delimiter=",", lineterminator="\n")
-                    csv_writer.writerows(print_rows)
-                    return answer
+                print(print_rows)
+                return answer
             return answer
+        except Exception as e:
+            print(e)
+            raise
+
+    def how_many_own_more_than_one_car(self):
+        try:
+            with open('vehicle.csv', 'r') as csv_file:
+                read_this = csv.DictReader(csv_file, delimiter=",")
+                for i in read_this:
+                    self.__filter_list.append(i)
+            result = {}
+            for key in self.__filter_list:
+                if 'Owner' in key:
+                    result[key['Owner']] = result.get(key['Owner'], 0) + 1
+            return [owner for owner, cars in result.items() if cars > 1]
         except Exception as e:
             print(e)
             raise
