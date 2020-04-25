@@ -135,14 +135,18 @@ class CarLot:
             raise
 
     def does_employee_have_car(self):
-        for row in self.__data_list:
-            for vehicle in self.__vehicle_data_list:
-                name = row['first'] + ' ' + row['last']
-                if name == vehicle['Owner'] and (row['role'] == 'admin' or row['role'] == 'employee'):
-                    self.__employee_cars.append(row)
-                    if row in self.__employee_cars:
-                        break
-        if len(self.__employee_cars) > 0:
-            return self.__employee_cars
-        else:
-            return False
+        try:
+            for row in self.__data_list:
+                for vehicle in self.__vehicle_data_list:
+                    name = row['first'] + ' ' + row['last']
+                    if name == vehicle['Owner'] and (row['role'] == 'admin' or row['role'] == 'employee'):
+                        self.__employee_cars.append(row)
+                        if row in self.__employee_cars:
+                            break
+            if len(self.__employee_cars) > 0:
+                return self.__employee_cars
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            raise
