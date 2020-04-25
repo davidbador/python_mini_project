@@ -30,7 +30,7 @@ class FileHandler:
         with open(file_name, 'r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=",")
             for column in csv_reader:
-                if data == column:
+                if data['user_id'] == column[0]:
                     return False
         csv_reader = open(file_name, 'r')
         with open(file_name, 'a+') as csv_file:
