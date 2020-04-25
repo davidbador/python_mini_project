@@ -136,15 +136,51 @@ class CarLot:
 
     def does_employee_have_car(self):
         try:
+            display_names = []
             for row in self.__data_list:
                 for vehicle in self.__vehicle_data_list:
                     name = row['first'] + ' ' + row['last']
                     if name == vehicle['Owner'] and (row['role'] == 'admin' or row['role'] == 'employee'):
-                        self.__employee_cars.append(row)
-                        if row in self.__employee_cars:
-                            break
-            if len(self.__employee_cars) > 0:
-                return self.__employee_cars
+                        new_row = {
+                            "user_id": row['user_id'],
+                            "name": vehicle['Owner'],
+                            "brand": vehicle['Brand'],
+                            "role": row['role']
+                        }
+                        self.__employee_cars.append(new_row)
+
+            for row in self.__employee_cars:
+                new_row = {
+                    "user_id": row['user_id'],
+                    "name": row['name'],
+                    "role": row['role']
+                }
+                if new_row not in display_names:
+                    display_names.append(new_row)
+
+            if len(display_names) > 0:
+                return display_names
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            raise
+
+    def get_all_employees_who_own_car_brand(self, brand):
+        try:
+            self.does_employee_have_car()
+            employee_brands = []
+            for row in self.__employee_cars:
+                new_row = {
+                    "user_id": row['user_id'],
+                    "name": row['name'],
+                    "role": row['role']
+                }
+                if brand == row['brand']:
+                    employee_brands.append(new_row)
+
+            if len(employee_brands) > 0:
+                return employee_brands
             else:
                 return False
         except Exception as e:
