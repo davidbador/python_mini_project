@@ -5,14 +5,19 @@ import csv
 
 class CarLot:
     __list_of_vehicles = []
+    __employee_cars = []
     __filter_list = []
+    __vehicle_data_list = []
 
     def __init__(self):
         self.__list_of_vehicles = []
         self.__filter_list = []
+        self.__employee_cars = []
         self.file_handle = FileHandler('user.csv')
+        self.file_handle_vehicle = FileHandler('vehicle.csv')
         self.user = User()
         self.__data_list = self.file_handle.get_data()
+        self.__vehicle_data_list = self.file_handle_vehicle.get_data()
 
     def update_salary_by_name(self, employee_salary, name):
         try:
@@ -128,3 +133,16 @@ class CarLot:
         except Exception as e:
             print(e)
             raise
+
+    def does_employee_have_car(self):
+        for row in self.__data_list:
+            for vehicle in self.__vehicle_data_list:
+                name = row['first'] + ' ' + row['last']
+                if name == vehicle['Owner'] and (row['role'] == 'admin' or row['role'] == 'employee'):
+                    self.__employee_cars.append(row)
+                    if row in self.__employee_cars:
+                        break
+        if len(self.__employee_cars) > 0:
+            return self.__employee_cars
+        else:
+            return False
