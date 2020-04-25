@@ -1,14 +1,17 @@
+# imports
 from file_handler import FileHandler
 from user import User
 import csv
 
 
+# class for car lot
 class CarLot:
+    # class properties
     __list_of_vehicles = []
     __employee_cars = []
-    __filter_list = []
     __vehicle_data_list = []
 
+    # class constructor
     def __init__(self):
         self.__list_of_vehicles = []
         self.__filter_list = []
@@ -19,6 +22,7 @@ class CarLot:
         self.__data_list = self.file_handle.get_data()
         self.__vehicle_data_list = self.file_handle_vehicle.get_data()
 
+    # method for updating salaries
     def update_salary_by_name(self, employee_salary, name):
         try:
             password_enter = input('Please enter password: ')
@@ -28,7 +32,7 @@ class CarLot:
                 new_name = enter_name.split()
                 for row in self.__data_list:
                     if row['first'] == new_name[0] and row['last'] == new_name[1] and row['role'] == 'employee':
-                        row['salary'] = employee_salary
+                        row['salary'] = str(employee_salary)
                         add_employee = self.file_handle.update_csv("user.csv", row['user_id'], row)
                         if add_employee:
                             return True
@@ -41,6 +45,7 @@ class CarLot:
             print(e)
             raise
 
+    # static method for adding cars to vehicle.csv
     @staticmethod
     def add_to_fleet(external_csv_fleet_file):
         try:
@@ -68,6 +73,7 @@ class CarLot:
             print(e)
             raise
 
+    # method for getting amount of vehicles in vehicle.csv
     def get_fleet_size(self):
         try:
             with open('vehicle.csv', "r") as csv_file:
@@ -80,6 +86,7 @@ class CarLot:
             print(e)
             raise
 
+    # static method for getting all cars by brand
     @staticmethod
     def get_all_cars_by_brand(brand):
         try:
@@ -94,6 +101,7 @@ class CarLot:
             print(e)
             raise
 
+    # method for getting cars by a filter key
     def get_all_cars_by_filter(self, and_or="AND", **kwargs):
         answer = False
         try:
@@ -119,14 +127,11 @@ class CarLot:
             print(e)
             raise
 
+    # method for getting how many people own more than one car
     def how_many_own_more_than_one_car(self):
         try:
-            with open('vehicle.csv', 'r') as csv_file:
-                read_this = csv.DictReader(csv_file, delimiter=",")
-                for i in read_this:
-                    self.__filter_list.append(i)
             result = {}
-            for key in self.__filter_list:
+            for key in self.__vehicle_data_list:
                 if 'Owner' in key:
                     result[key['Owner']] = result.get(key['Owner'], 0) + 1
             return [owner for owner, cars in result.items() if cars > 1]
@@ -134,6 +139,7 @@ class CarLot:
             print(e)
             raise
 
+    # method for checking if an employee owns a car
     def does_employee_have_car(self):
         try:
             display_names = []
@@ -166,6 +172,7 @@ class CarLot:
             print(e)
             raise
 
+    # method for checking which employees own a specific car brand
     def get_all_employees_who_own_car_brand(self, brand):
         try:
             self.does_employee_have_car()

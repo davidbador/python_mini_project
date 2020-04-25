@@ -3,7 +3,6 @@ user_id,first,last,password,position,salary,role
 50000005,Anna,Starr,fifthFive1990,Head of Data,150000,employee
 10000001,David,Bador,firstOne1992,President,200000,admin
 40000004,Matan,Cohen,fourthFour1992,Customer,100000,user
-90000009,Alex,Bloom,ninthNine1992,Head of Awesome,150000,employee
 20000002,Amit,Saig,secondTwo1995,Vice-President,200000,employee
 70000007,Danielle,Korn,seventhSeven1994,Senior Engineer,130000,employee
 60000006,Daryl,Mizrahi,sixthSix1993,Head of Marketing,200000,employee
@@ -11,3 +10,4 @@ user_id,first,last,password,position,salary,role
 30000003,Hillel,Feldman,thirdThree1993,VP of R&D,200000,employee
 1200000012,Sacha,Rebbouh,sachsach111,Rabbi,200000,user
 1300000013,Selim,Mizrahi,selsel222,Coder,150000,employee
+90000009,Alex,Bloom,ninthNine1992,Head of Awesome,200000,employee

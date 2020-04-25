@@ -1,18 +1,23 @@
+# imports
 import csv
 from logger import Logger
 import operator
 
 
+# class for file handling
 class FileHandler:
+    # class properties
     __data_list = []
     __key_list = []
 
+    # class constructor
     def __init__(self, file_name):
         self.__data_list = []
         self.__key_list = []
         self.log_it = Logger()
         self.load_from_csv(file_name)
 
+    # method for loading csv data
     def load_from_csv(self, file_name):
         try:
             with open(file_name, 'r') as csv_file:
@@ -23,9 +28,11 @@ class FileHandler:
             print(FileExistsError(e))
             raise
 
+    # method for returning csv data
     def get_data(self):
         return self.__data_list
 
+    # method for appending to csv file
     def append_to_csv(self, file_name, data):
         with open(file_name, 'r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=",")
@@ -47,6 +54,7 @@ class FileHandler:
                 print(e)
                 raise
 
+    # static method for removing data from csv file by id
     @staticmethod
     def remove_from_csv(csv_file_name, id):
         try:
@@ -55,7 +63,7 @@ class FileHandler:
             with open(csv_file_name, 'r') as read_file:
                 csv_reader = csv.reader(read_file)
                 for row in csv_reader:
-                    if row[0] != id:
+                    if row[0] != str(id):
                         lines.append(row)
                     else:
                         answer = True
@@ -67,6 +75,7 @@ class FileHandler:
             print(e)
             raise
 
+    # method for updating csv file data by id
     def update_csv(self, csv_file_name, id, row):
         self.load_from_csv('user.csv')
         answer = self.remove_from_csv(csv_file_name, id)
@@ -83,6 +92,7 @@ class FileHandler:
             print(e)
             raise
 
+    # method for sorting csv data by specific key
     def sort_by_key(self, file_name, key, direction):
         try:
             with open('user.csv', 'r') as csv_file:

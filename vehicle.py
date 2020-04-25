@@ -1,13 +1,17 @@
+# imports
 from file_handler import FileHandler
 import datetime
 
 
+# class for vehicle
 class Vehicle:
 
+    # class constructor
     def __init__(self):
         self.file_handle = FileHandler('vehicle.csv')
         self.__data_list = self.file_handle.get_data()
 
+    # method for updating vehicle attributes by id
     def update_vehicle_by_id(self, id, **kwargs):
         try:
             self.file_handle.load_from_csv('vehicle.csv')
@@ -21,6 +25,7 @@ class Vehicle:
             print(e)
             raise
 
+    # method for calculating how many years until a vehicle must be tested again
     def get_time_to_test(self, id):
         self.file_handle.load_from_csv('vehicle.csv')
         time = datetime.datetime.now()

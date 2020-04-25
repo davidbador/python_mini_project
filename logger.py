@@ -1,9 +1,12 @@
+# imports
 import datetime
 import os
 
 
+# class for logger
 class Logger:
 
+    # static method to create or append logger files
     @staticmethod
     def add_to_log(msg):
         date_set_up = datetime.datetime.now()
